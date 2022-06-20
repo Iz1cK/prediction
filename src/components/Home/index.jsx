@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
+import Match from "../../Utils/Match";
 
 function Home() {
   const [data, setData] = useState([]);
@@ -51,48 +52,8 @@ function Home() {
       <div className={style.date}>
         <h1>{tempData.date}</h1>
       </div>
-      {tempData.matches.map((match) => {
-        return (
-          <div className={style.line}>
-            <div className={style.left}>
-              <div className={style.time}>
-                <h1>{match.time}</h1>
-                <h1 className={style.approx}>APPROX</h1>
-              </div>
-            </div>
-            <div className={style.center}>
-              <div className={style.team1}>
-                <img
-                  src={match.team1Pic}
-                  alt={match.team1}
-                  width="75px"
-                  height="75px"
-                />
-                <div className={style.teamInfo}>
-                  <h2>{match.team1}</h2>
-                </div>
-              </div>
-              <div className={style.vs}>VS</div>
-              <div className={style.team2}>
-                <img
-                  src={match.team2Pic}
-                  alt={match.team2}
-                  width="75px"
-                  height="75px"
-                />
-                <div className={style.teamInfo}>
-                  <h2>{match.team2}</h2>
-                </div>
-              </div>
-            </div>
-            <div className={style.right}>
-              <div className={style.leagueAndFormat}>
-                <div className={style.league}>LEC</div>
-                <div className={style.format}>best of 1</div>
-              </div>
-            </div>
-          </div>
-        );
+      {tempData.matches.map((match, index) => {
+        return <Match match={match} matchid={index} key={index}></Match>;
       })}
     </>
   );
