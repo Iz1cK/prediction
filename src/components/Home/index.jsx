@@ -5,7 +5,19 @@ import Match from "../../Utils/Match";
 function Home() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [picked, setPicked] = useState(false);
+  const [predictions, setPredictions] = useState([]);
+
+  useEffect(() => {
+    if (!localStorage.getItem("predictions")) {
+      localStorage.setItem("predictions", []);
+    } else {
+      setPredictions(JSON.parse(localStorage.getItem("predictions")));
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(predictions);
+  }, [predictions]);
 
   //will be array in future for more days
   let tempData = {
@@ -53,7 +65,15 @@ function Home() {
         <h1>{tempData.date}</h1>
       </div>
       {tempData.matches.map((match, index) => {
-        return <Match match={match} matchid={index} key={index}></Match>;
+        return (
+          <Match
+            match={match}
+            matchid={index}
+            predictions={predictions}
+            setPredictions={setPredictions}
+            key={index}
+          ></Match>
+        );
       })}
     </>
   );

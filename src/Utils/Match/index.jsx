@@ -1,23 +1,10 @@
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 
-const Match = ({ match, matchid: matchid }) => {
+const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
   const [team1Picked, setTeam1Picked] = useState(false);
   const [team2Picked, setTeam2Picked] = useState(false);
-  const [predictions, setPredictions] = useState([]);
 
-  useEffect(() => {
-    if (!localStorage.getItem("predictions")) {
-      localStorage.setItem("predictions", []);
-    } else {
-      setPredictions(localStorage.getItem("predictions"));
-    }
-  }, []);
-
-  useEffect(() => {
-    // localStorage.setItem("predictions", predictions);
-    console.log(predictions);
-  }, [predictions]);
   return (
     <div className={style.line}>
       <div className={style.left}>
@@ -36,8 +23,9 @@ const Match = ({ match, matchid: matchid }) => {
               : ""
           }`}
           onClick={(e) => {
-            if (team1Picked) {
-              console.log({
+            // if (!team1Picked) {
+            setPredictions(() => {
+              match = {
                 matchid: matchid,
                 team1: match.team1,
                 team2: match.team2,
@@ -45,27 +33,18 @@ const Match = ({ match, matchid: matchid }) => {
                 league: match.league,
                 format: match.format,
                 time: match.time,
-              });
-              setPredictions(
-                predictions.push({
-                  matchid: matchid,
-                  team1: match.team1,
-                  team2: match.team2,
-                  prediction: match.team1,
-                  league: match.league,
-                  format: match.format,
-                  time: match.time,
-                })
-              );
-            } else {
-              setPredictions(
-                predictions.filter(
-                  (prediction) => prediction.matchid !== matchid
-                )
-              );
-            }
-            setTeam1Picked(false);
-            setTeam2Picked(!team2Picked);
+              };
+              return [...predictions, match];
+            });
+            // } else {
+            //   setPredictions(
+            //     predictions.filter(
+            //       (prediction) => prediction.matchid !== matchid
+            //     )
+            //   );
+            // }
+            setTeam1Picked(!team1Picked);
+            setTeam2Picked(false);
           }}
         >
           <img
@@ -88,8 +67,8 @@ const Match = ({ match, matchid: matchid }) => {
               : ""
           }`}
           onClick={(e) => {
-            setTeam1Picked(!team1Picked);
-            setTeam2Picked(false);
+            setTeam1Picked(false);
+            setTeam2Picked(!team2Picked);
           }}
         >
           <img

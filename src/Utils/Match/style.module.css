@@ -34,9 +34,11 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin: 10px;
+  /* margin: 10px; */
+  margin: auto;
   border-bottom: 0.5px solid #8fa3b0;
   transition: all 0.25s ease-in-out;
+  width: 90vw;
 }
 
 .left {
@@ -69,15 +71,15 @@
   width: 95%;
 }
 
-.team1Picked1{
-    margin-left: 400px;
+.team2Picked1 {
+  margin-left: 400px;
 }
-.team1Picked2{
-    margin-right: 0px;
+.team2Picked2 {
+  margin-right: 0px;
 }
-.team2Picked1{
-    margin-left: 0px;
+.team1Picked1 {
+  margin-left: 0px;
 }
-.team2Picked2{
-    margin-right: 400px;
+.team1Picked2 {
+  margin-right: 400px;
 }
