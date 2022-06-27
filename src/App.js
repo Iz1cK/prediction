@@ -1,8 +1,8 @@
 import logo from "./logo.svg";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import Home from "./components/Home";
-import Authentication from "./components/Authentication";
+import Home from "./pages/Home";
+import Authentication from "./pages/Authentication";
 
 function App() {
   return (

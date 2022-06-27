@@ -10,6 +10,7 @@
   margin: 10px;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
+  width: 45%;
 }
 
 .team2 {
@@ -20,6 +21,12 @@
   margin: 10px;
   cursor: pointer;
   transition: all 0.25s ease-in-out;
+  width: 45%;
+}
+
+.teamName {
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .center {
@@ -39,6 +46,7 @@
   border-bottom: 0.5px solid #8fa3b0;
   transition: all 0.25s ease-in-out;
   width: 90vw;
+  user-select: none;
 }
 
 .left {

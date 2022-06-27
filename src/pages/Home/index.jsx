@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
-import Match from "../../Utils/Match";
+import Match from "../../components/Match";
 
 function Home() {
   const [data, setData] = useState([]);
