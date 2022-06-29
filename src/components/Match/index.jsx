@@ -12,13 +12,21 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
       style={{
         backgroundColor:
           teamsColors[
-            team1Picked ? match.team1 : team2Picked ? match.team2 : ""
+            team1Picked
+              ? match.teams[0].code
+              : team2Picked
+              ? match.teams[1].code
+              : ""
           ],
       }}
     >
       <div className={style.left}>
         <div className={style.time}>
-          <h1>{match.time}</h1>
+          <h1>
+            {match.date.split("T")[1].split(":")[0] +
+              ":" +
+              match.date.split("T")[1].split(":")[1]}
+          </h1>
           <h1 className={style.approx}>APPROX</h1>
         </div>
       </div>
@@ -38,12 +46,14 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
                   .filter((prediction) => prediction.matchid !== matchid)
                   .concat({
                     matchid: matchid,
-                    team1: match.team1,
-                    team2: match.team2,
-                    prediction: match.team1,
-                    league: match.league,
+                    teams: match.teams,
+                    prediction: match.teams[0],
+                    league: match.league.leagueid,
                     format: match.format,
-                    time: match.time,
+                    time:
+                      match.date.split("T")[1].split(":")[0] +
+                      ":" +
+                      match.date.split("T")[1].split(":")[1],
                   })
               );
             } else {
@@ -55,16 +65,18 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
             }
             setTeam1Picked(!team1Picked);
             setTeam2Picked(false);
+            e.target.style.backgroundColor = e.target.style.backgroundColor;
+            console.log(e.target.style.backgroundColor);
           }}
         >
           <img
-            src={match.team1Pic}
-            alt={match.team1}
+            src={match.teams[0].image}
+            alt={match.teams[0].code}
             width="75px"
             height="75px"
           />
           <div className={style.teamInfo}>
-            <h2 className={style.teamName}>{match.team1}</h2>
+            <h2 className={style.teamName}>{match.teams[0].name}</h2>
           </div>
         </div>
         <div className={style.vs}>VS</div>
@@ -83,12 +95,14 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
                   .filter((prediction) => prediction.matchid !== matchid)
                   .concat({
                     matchid: matchid,
-                    team1: match.team1,
-                    team2: match.team2,
-                    prediction: match.team2,
-                    league: match.league,
+                    teams: match.teams,
+                    prediction: match.teams[1],
+                    league: match.league.leagueid,
                     format: match.format,
-                    time: match.time,
+                    time:
+                      match.date.split("T")[1].split(":")[0] +
+                      ":" +
+                      match.date.split("T")[1].split(":")[1],
                   })
               );
             } else {
@@ -103,19 +117,19 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
           }}
         >
           <img
-            src={match.team2Pic}
-            alt={match.team2}
+            src={match.teams[1].image}
+            alt={match.teams[1].code}
             width="75px"
             height="75px"
           />
           <div className={style.teamInfo}>
-            <h2 className={style.teamName}> {match.team2}</h2>
+            <h2 className={style.teamName}> {match.teams[1].name}</h2>
           </div>
         </div>
       </div>
       <div className={style.right}>
         <div className={style.leagueAndFormat}>
-          <div className={style.league}>{match.league}</div>
+          <div className={style.league}>{match.league.name}</div>
           <div className={style.format}>{match.format}</div>
         </div>
       </div>

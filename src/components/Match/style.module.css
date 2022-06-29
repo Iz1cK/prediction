@@ -91,3 +91,6 @@
 .team1Picked2 {
   margin-right: 400px;
 }
+.team1Clicked {
+  transform: scale(0.2);
+}

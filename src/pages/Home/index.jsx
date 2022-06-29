@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
+import axios from "axios";
 import Match from "../../components/Match";
 
 function Home() {
@@ -8,17 +9,26 @@ function Home() {
   const [predictions, setPredictions] = useState([]);
 
   useEffect(() => {
-    if (!localStorage.getItem("predictions")) {
-      localStorage.setItem("predictions", []);
-    } else {
-      setPredictions(JSON.parse(localStorage.getItem("predictions")));
-    }
+    // if (!localStorage.getItem("predictions")) {
+    //   localStorage.setItem("predictions", []);
+    // } else {
+    //   setPredictions(JSON.parse(localStorage.getItem("predictions")));
+    // }
+    const getData = async () => {
+      setData(
+        (await axios.get(`http://localhost:4000/api/all-matches`)).data.result
+      );
+    };
+    getData();
   }, []);
 
   useEffect(() => {
     console.log(predictions);
   }, [predictions]);
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   //will be array in future for more days
   let tempData = {
     date: "Today - 17 June",
@@ -64,7 +74,7 @@ function Home() {
       <div className={style.date}>
         <h1>{tempData.date}</h1>
       </div>
-      {tempData.matches.map((match, index) => {
+      {data.map((match, index) => {
         return (
           <Match
             match={match}
