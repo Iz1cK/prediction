@@ -46,14 +46,7 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
                   .filter((prediction) => prediction.matchid !== matchid)
                   .concat({
                     matchid: matchid,
-                    teams: match.teams,
                     prediction: match.teams[0],
-                    league: match.league.leagueid,
-                    format: match.format,
-                    time:
-                      match.date.split("T")[1].split(":")[0] +
-                      ":" +
-                      match.date.split("T")[1].split(":")[1],
                   })
               );
             } else {
@@ -95,14 +88,7 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
                   .filter((prediction) => prediction.matchid !== matchid)
                   .concat({
                     matchid: matchid,
-                    teams: match.teams,
                     prediction: match.teams[1],
-                    league: match.league.leagueid,
-                    format: match.format,
-                    time:
-                      match.date.split("T")[1].split(":")[0] +
-                      ":" +
-                      match.date.split("T")[1].split(":")[1],
                   })
               );
             } else {
