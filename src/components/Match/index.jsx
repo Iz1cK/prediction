@@ -6,6 +6,16 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
   const [team1Picked, setTeam1Picked] = useState(false);
   const [team2Picked, setTeam2Picked] = useState(false);
 
+  useEffect(() => {
+    const { prediction } = predictions[matchid - 1];
+    if (prediction == match.teams[0].teamid) {
+      setTeam1Picked(true);
+    }
+    if (prediction == match.teams[1].teamid) {
+      setTeam2Picked(true);
+    }
+  }, []);
+
   return (
     <div
       className={style.line}
@@ -46,14 +56,14 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
                   .filter((prediction) => prediction.matchid !== matchid)
                   .concat({
                     matchid: matchid,
-                    prediction: match.teams[0],
+                    prediction: match.teams[0].teamid,
                   })
               );
             } else {
               setPredictions(
-                predictions.filter(
-                  (prediction) => prediction.matchid !== matchid
-                )
+                predictions
+                  .filter((prediction) => prediction.matchid !== matchid)
+                  .concat({ matchid: matchid, prediction: NaN })
               );
             }
             setTeam1Picked(!team1Picked);
@@ -88,14 +98,14 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
                   .filter((prediction) => prediction.matchid !== matchid)
                   .concat({
                     matchid: matchid,
-                    prediction: match.teams[1],
+                    prediction: match.teams[1].teamid,
                   })
               );
             } else {
               setPredictions(
-                predictions.filter(
-                  (prediction) => prediction.matchid !== matchid
-                )
+                predictions
+                  .filter((prediction) => prediction.matchid !== matchid)
+                  .concat({ matchid: matchid, prediction: NaN })
               );
             }
             setTeam1Picked(false);

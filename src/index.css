@@ -7,8 +7,6 @@ body {
   font-family: "Colfax", Helvetica, sans-serif;
 }
 
-@import "~antd/dist/antd.css";
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
