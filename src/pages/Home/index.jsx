@@ -3,12 +3,6 @@ import style from "./style.module.css";
 import axios from "axios";
 import Match from "../../components/Match";
 
-let axiosConfig = {
-  headers: {
-    authorization: `Bearer ${localStorage.getItem("access_token")}`,
-  },
-};
-
 function Home({ accessToken }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -23,14 +17,11 @@ function Home({ accessToken }) {
       );
       setPredictions(
         (
-          await axios.get(
-            `http://localhost:4000/api/get-predictions`,
-            {
-              headers: {
-                authorization: `Bearer ${accessToken}`,
-              },
-            }
-          )
+          await axios.get(`http://localhost:4000/api/get-predictions`, {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          })
         ).data.result.sort((a, b) => a.matchid - b.matchid)
       );
       setLoading(false);
@@ -38,13 +29,15 @@ function Home({ accessToken }) {
     getData();
   }, [accessToken]);
 
-  // useEffect(() => {}, [predictions]);
-
   const handleDone = async () => {
     await axios.post(
       `http://localhost:4000/api/make-predictions`,
       predictions,
-      axiosConfig
+      {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      }
     );
   };
 
@@ -69,7 +62,6 @@ function Home({ accessToken }) {
           ></Match>
         );
       })}
-      <button onClick={handleDone}>done</button>
     </>
   );
 }

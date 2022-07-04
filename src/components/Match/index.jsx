@@ -2,7 +2,13 @@ import React, { useState, useEffect } from "react";
 import style from "./style.module.css";
 import teamsColors from "../../utils/teamsColors.json";
 
-const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
+const Match = ({
+  match,
+  matchid: matchid,
+  predictions,
+  setPredictions,
+  handleDone,
+}) => {
   const [team1Picked, setTeam1Picked] = useState(false);
   const [team2Picked, setTeam2Picked] = useState(false);
 
@@ -18,6 +24,10 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    handleDone();
+  }, [team1Picked, team2Picked]);
 
   return (
     <div
@@ -71,7 +81,6 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
             }
             setTeam1Picked(!team1Picked);
             setTeam2Picked(false);
-            // handleDone();
           }}
         >
           <img
@@ -112,7 +121,6 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
             }
             setTeam1Picked(false);
             setTeam2Picked(!team2Picked);
-            // handleDone();
           }}
         >
           <img
