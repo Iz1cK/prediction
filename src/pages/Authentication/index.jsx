@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./style.module.css";
 
-function Authentication() {
+function Authentication({ setAccessToken }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,6 +20,7 @@ function Authentication() {
         })
         .then(({ data }) => {
           localStorage.setItem("access_token", data.access_token);
+          setAccessToken(data.access_token)
           navigate("/");
         })
         .catch(({ response }) => setError(response.data.message));

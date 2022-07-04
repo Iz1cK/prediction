@@ -9,7 +9,7 @@ let axiosConfig = {
   },
 };
 
-function Home() {
+function Home({ accessToken }) {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [predictions, setPredictions] = useState([]);
@@ -25,14 +25,18 @@ function Home() {
         (
           await axios.get(
             `http://localhost:4000/api/get-predictions`,
-            axiosConfig
+            {
+              headers: {
+                authorization: `Bearer ${accessToken}`,
+              },
+            }
           )
         ).data.result.sort((a, b) => a.matchid - b.matchid)
       );
       setLoading(false);
     };
     getData();
-  }, []);
+  }, [accessToken]);
 
   // useEffect(() => {}, [predictions]);
 
