@@ -15,6 +15,7 @@ function Home() {
   const [predictions, setPredictions] = useState([]);
 
   useEffect(() => {
+    setPredictions([]);
     const getData = async () => {
       setLoading(true);
       setData(
@@ -33,11 +34,9 @@ function Home() {
     getData();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem("predictions", JSON.stringify(predictions));
-  }, [predictions]);
+  // useEffect(() => {}, [predictions]);
 
-  const handleDone = async (e) => {
+  const handleDone = async () => {
     await axios.post(
       `http://localhost:4000/api/make-predictions`,
       predictions,
@@ -62,10 +61,11 @@ function Home() {
             predictions={predictions}
             setPredictions={setPredictions}
             key={index}
+            handleDone={handleDone}
           ></Match>
         );
       })}
-      <button onClick={handleDone}>Done</button>
+      <button onClick={handleDone}>done</button>
     </>
   );
 }

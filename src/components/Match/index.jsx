@@ -7,12 +7,15 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
   const [team2Picked, setTeam2Picked] = useState(false);
 
   useEffect(() => {
-    const { prediction } = predictions[matchid - 1];
-    if (prediction == match.teams[0].teamid) {
-      setTeam1Picked(true);
-    }
-    if (prediction == match.teams[1].teamid) {
-      setTeam2Picked(true);
+    if (predictions.length > 0) {
+      if (!predictions[matchid - 1]) return;
+      const { prediction } = predictions[matchid - 1];
+      if (prediction == match.teams[0].teamid) {
+        setTeam1Picked(true);
+      }
+      if (prediction == match.teams[1].teamid) {
+        setTeam2Picked(true);
+      }
     }
   }, []);
 
@@ -68,8 +71,7 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
             }
             setTeam1Picked(!team1Picked);
             setTeam2Picked(false);
-            e.target.style.backgroundColor = e.target.style.backgroundColor;
-            console.log(e.target.style.backgroundColor);
+            // handleDone();
           }}
         >
           <img
@@ -110,6 +112,7 @@ const Match = ({ match, matchid: matchid, predictions, setPredictions }) => {
             }
             setTeam1Picked(false);
             setTeam2Picked(!team2Picked);
+            // handleDone();
           }}
         >
           <img
