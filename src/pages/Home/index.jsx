@@ -13,7 +13,8 @@ function Home({ accessToken }) {
     const getData = async () => {
       setLoading(true);
       setData(
-        (await axios.get(`http://localhost:4000/api/all-matches`)).data.result
+        (await axios.get(`http://localhost:4000/api/current-matches`)).data
+          .result
       );
       setPredictions(
         (
