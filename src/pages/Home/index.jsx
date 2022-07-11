@@ -5,6 +5,7 @@ import Match from "../../components/Match";
 
 function Home({ accessToken }) {
   const [data, setData] = useState([]);
+  const [tempData, setTempData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [predictions, setPredictions] = useState([]);
 
@@ -42,16 +43,39 @@ function Home({ accessToken }) {
     );
   };
 
+  const formatMatchesByDate = () => {
+    let arr = [];
+    let added = [];
+    for (let i = 0; i < data.length; i++) {
+      const date = data[i].date.split("T")[0].split("-").reverse().join("/");
+      let temp = [];
+      for (let j = 0; j < data.length; j++) {
+        if (
+          data[j].date.split("T")[0].split("-").reverse().join("/") === date
+        ) {
+          temp.push(data[j]);
+        }
+      }
+      if (!added.includes(date)) {
+        arr.push({ [date]: temp });
+        added.push(date);
+      }
+    }
+    console.log(arr);
+    setTempData(arr);
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
 
   return (
     <>
-      <div className={style.date}>
+      {/* <div className={style.date}>
         <h1>{data[0].date.split("T")[0].split("-").reverse().join("/")}</h1>
-      </div>
-      {data.map((match, index) => {
+      </div> */}
+      <button onClick={formatMatchesByDate}>format</button>
+      {/* {data.map((match, index) => {
         return (
           <Match
             match={match}
@@ -61,6 +85,29 @@ function Home({ accessToken }) {
             key={index}
             handleDone={handleDone}
           ></Match>
+        );
+      })} */}
+      {tempData.map((match, index) => {
+        let matchDate = Object.keys(match)[0];
+        console.log(match[matchDate]);
+        return (
+          <>
+            <div className={style.date}>
+              <h1 key={index}>{matchDate}</h1>
+            </div>
+            {match[matchDate].map((m, i) => {
+              return (
+                <Match
+                  match={m}
+                  matchid={i}
+                  predictions={predictions}
+                  setPredictions={setPredictions}
+                  key={i}
+                  handleDone={handleDone}
+                ></Match>
+              );
+            })}
+          </>
         );
       })}
     </>
