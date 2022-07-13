@@ -61,7 +61,6 @@ function Home({ accessToken }) {
         added.push(date);
       }
     }
-    console.log(arr);
     setTempData(arr);
   };
 
@@ -89,7 +88,6 @@ function Home({ accessToken }) {
       })} */}
       {tempData.map((match, index) => {
         let matchDate = Object.keys(match)[0];
-        console.log(match[matchDate]);
         return (
           <>
             <div className={style.date}>
