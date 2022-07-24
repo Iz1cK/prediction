@@ -9,40 +9,6 @@ function Home({ accessToken }) {
   const [loading, setLoading] = useState(true);
   const [predictions, setPredictions] = useState([]);
 
-  useEffect(() => {
-    setPredictions([]);
-    const getData = async () => {
-      setLoading(true);
-      setData(
-        (await axios.get(`http://localhost:4000/api/current-matches`)).data
-          .result
-      );
-      setPredictions(
-        (
-          await axios.get(`http://localhost:4000/api/get-predictions`, {
-            headers: {
-              authorization: `Bearer ${accessToken}`,
-            },
-          })
-        ).data.result.sort((a, b) => a.matchid - b.matchid)
-      );
-      setLoading(false);
-    };
-    getData();
-  }, [accessToken]);
-
-  const handleDone = async () => {
-    await axios.post(
-      `http://localhost:4000/api/make-predictions`,
-      predictions,
-      {
-        headers: {
-          authorization: `Bearer ${accessToken}`,
-        },
-      }
-    );
-  };
-
   const formatMatchesByDate = () => {
     let arr = [];
     let added = [];
@@ -64,6 +30,41 @@ function Home({ accessToken }) {
     setTempData(arr);
   };
 
+  useEffect(() => {
+    setPredictions([]);
+    const getData = async () => {
+      setLoading(true);
+      setData(
+        (await axios.get(`http://localhost:4000/api/current-matches`)).data
+          .result
+      );
+      setPredictions(
+        (
+          await axios.get(`http://localhost:4000/api/get-predictions`, {
+            headers: {
+              authorization: `Bearer ${accessToken}`,
+            },
+          })
+        ).data.result.sort((a, b) => a.matchid - b.matchid)
+      );
+      setLoading(false);
+    };
+    getData();
+    formatMatchesByDate();
+  }, [accessToken]);
+
+  const handleDone = async () => {
+    await axios.post(
+      `http://localhost:4000/api/make-predictions`,
+      predictions,
+      {
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
@@ -72,9 +73,8 @@ function Home({ accessToken }) {
     <>
       {/* <div className={style.date}>
         <h1>{data[0].date.split("T")[0].split("-").reverse().join("/")}</h1>
-      </div> */}
-      <button onClick={formatMatchesByDate}>format</button>
-      {/* {data.map((match, index) => {
+      </div> */
+      /* {data.map((match, index) => {
         return (
           <Match
             match={match}
