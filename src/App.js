@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Authentication from "./pages/Authentication";
+import Header from "./components/Header";
 
 function App() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function App() {
 
   return (
     <>
+      <Header></Header>
       <Routes>
         <Route path="/" exact element={<Home accessToken={accessToken} />} />
         <Route

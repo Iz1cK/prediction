@@ -9,17 +9,17 @@ function Home({ accessToken }) {
   const [loading, setLoading] = useState(true);
   const [predictions, setPredictions] = useState([]);
 
-  const formatMatchesByDate = () => {
+  const formatMatchesByDate = (allData) => {
     let arr = [];
     let added = [];
-    for (let i = 0; i < data.length; i++) {
-      const date = data[i].date.split("T")[0].split("-").reverse().join("/");
+    for (let i = 0; i < allData.length; i++) {
+      const date = allData[i].date.split("T")[0].split("-").reverse().join("/");
       let temp = [];
-      for (let j = 0; j < data.length; j++) {
+      for (let j = 0; j < allData.length; j++) {
         if (
-          data[j].date.split("T")[0].split("-").reverse().join("/") === date
+          allData[j].date.split("T")[0].split("-").reverse().join("/") === date
         ) {
-          temp.push(data[j]);
+          temp.push(allData[j]);
         }
       }
       if (!added.includes(date)) {
@@ -34,10 +34,12 @@ function Home({ accessToken }) {
     setPredictions([]);
     const getData = async () => {
       setLoading(true);
-      setData(
-        (await axios.get(`http://localhost:4000/api/current-matches`)).data
-          .result
-      );
+      setData(async (prevData) => {
+        prevData = (
+          await axios.get(`http://localhost:4000/api/current-matches`)
+        ).data.result;
+        formatMatchesByDate(prevData);
+      });
       setPredictions(
         (
           await axios.get(`http://localhost:4000/api/get-predictions`, {
@@ -50,7 +52,6 @@ function Home({ accessToken }) {
       setLoading(false);
     };
     getData();
-    formatMatchesByDate();
   }, [accessToken]);
 
   const handleDone = async () => {
