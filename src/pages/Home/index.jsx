@@ -9,6 +9,7 @@ function Home({ accessToken }) {
   const [loading, setLoading] = useState(true);
   const [predictions, setPredictions] = useState([]);
 
+<<<<<<< HEAD
   const formatMatchesByDate = (dataArr) => {
     let arr = [];
     let added = [];
@@ -20,6 +21,19 @@ function Home({ accessToken }) {
           dataArr[j].date.split("T")[0].split("-").reverse().join("/") === date
         ) {
           temp.push(dataArr[j]);
+=======
+  const formatMatchesByDate = (allData) => {
+    let arr = [];
+    let added = [];
+    for (let i = 0; i < allData.length; i++) {
+      const date = allData[i].date.split("T")[0].split("-").reverse().join("/");
+      let temp = [];
+      for (let j = 0; j < allData.length; j++) {
+        if (
+          allData[j].date.split("T")[0].split("-").reverse().join("/") === date
+        ) {
+          temp.push(allData[j]);
+>>>>>>> 7bb7cf16bf4154d9d11a8c3a48d547c035d6146c
         }
       }
       if (!added.includes(date)) {

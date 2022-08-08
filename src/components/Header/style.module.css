@@ -1,0 +1,14 @@
+.head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.headerElement {
+  width: 100px;
+  height: 50px;
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
