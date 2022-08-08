@@ -19,7 +19,11 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" exact element={<Home accessToken={accessToken} />} />
+        <Route
+          path="/home"
+          exact
+          element={<Home accessToken={accessToken} />}
+        />
         <Route
           path="/login"
           element={<Authentication setAccessToken={setAccessToken} />}
