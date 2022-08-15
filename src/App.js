@@ -21,11 +21,7 @@ function App() {
     <>
       <Header></Header>
       <Routes>
-        <Route
-          path="/home"
-          exact
-          element={<Home accessToken={accessToken} />}
-        />
+        <Route path="/" exact element={<Home accessToken={accessToken} />} />
         <Route
           path="/login"
           element={<Authentication setAccessToken={setAccessToken} />}
