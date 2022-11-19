@@ -13,16 +13,15 @@ const Match = ({
   const [team2Picked, setTeam2Picked] = useState(false);
 
   useEffect(() => {
-    if (predictions.length > 0) {
-      if (!predictions[matchid - 1]) return;
-      const { prediction } = predictions[matchid - 1];
-      if (prediction == match.teams[0].teamid) {
+    console.log(predictions);
+    predictions.forEach((pred) => {
+      if (pred.prediction == match.teams[0].teamid) {
         setTeam1Picked(true);
       }
-      if (prediction == match.teams[1].teamid) {
+      if (pred.prediction == match.teams[1].teamid) {
         setTeam2Picked(true);
       }
-    }
+    });
   }, []);
 
   useEffect(() => {
@@ -53,7 +52,7 @@ const Match = ({
           <h1 className={style.approx}>APPROX</h1>
         </div>
       </div>
-      <div className={style.center}>
+      <div className={style.center} id={matchid}>
         <div
           className={`${style.team1} ${
             team1Picked

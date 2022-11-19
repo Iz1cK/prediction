@@ -77,10 +77,10 @@ function Home({ accessToken }) {
               return (
                 <Match
                   match={m}
-                  matchid={i}
+                  matchid={m.matchid}
                   predictions={predictions}
                   setPredictions={setPredictions}
-                  key={i}
+                  key={m.matchid}
                   handleDone={handleDone}
                 ></Match>
               );
